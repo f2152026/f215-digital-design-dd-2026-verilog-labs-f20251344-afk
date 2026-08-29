@@ -16,10 +16,14 @@ module FA_Gate(
 );
   wire ps, pc1, pc2;
 
-  xor (ps,  a,   b);
-  and (pc1, a,   b);
-  xor (sum, cin, ps);
-  and (pc2, cin, ps);
-  or  (cout, pc1, pc2);
+  or #2 (cout, pc1, pc2);
+  xor #2  (ps,  a,   b);
+  and #2 (pc1, a,   b);
+  xor #2 (sum, cin, ps);
+  and #2 (pc2, cin, ps);
+  
 
 endmodule
+
+// structural order doesnt matter in verilog. so waveform in 1b remains as is, but 
+//adding a delay of 2 time units changes the waveform as it now adds a lag of two time units.
